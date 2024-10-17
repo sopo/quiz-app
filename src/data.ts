@@ -1,25 +1,23 @@
-import {useState} from 'react'
-import AnswerContainer from './comonents/answer-container/answer-container';
-import AnswerWrapper from './comonents/answer-container/answer-wrapper';
-import PageTitle from './comonents/page-title/page-title';
-function App() {
-  const [answers, setAnswers] = useState({
-
-  })
-  const [results, setResults] = useState({})
-
+type Quiz = {
+    id: number;
+    name: string;
+    questions: Questions[];
+  };
   
-  const handleAnswerClick = (index, answer) =>{
-    return(
-      setAnswers({
-        ...answers,
-        selectedAnswer: answer,
-        selectedIndex: index
-      })
-    )
-  }
-  console.log(answers)
-  const quiz = {
+  type Questions = {
+    id: number;
+    score: number;
+    name: string;
+    variants: Variant[];
+  };
+  
+  type Variant = {
+    id: number;
+    name: string;
+    isCorrect: boolean;
+  };
+  
+  const quiz: Quiz = {
     id: 1,
     name: "Quiz #2",
     questions: [
@@ -65,29 +63,3 @@ function App() {
       },
     ],
   };
-
-  return (
-    <>
-      <div className="bg">
-
-          {quiz.questions.map((question) => (
-            <div key={question.id}>
-          
-               <PageTitle question={question.name}/>
-              {question.variants.map(variant => (
-                <>
-                <AnswerWrapper key={variant.id}>
-                <AnswerContainer key={variant.id} index={variant.id} answer={variant.name} onClick={() => handleAnswerClick(variant.id, variant.name)}/>
-                </AnswerWrapper>
-                </>
-              ))}
-          
-            </div>
-          ))}
-       
-      </div>
-    </>
-  );
-}
-
-export default App;
